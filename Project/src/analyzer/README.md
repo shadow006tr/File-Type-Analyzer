@@ -9,9 +9,13 @@
 > Takes 4 arguments
 >
 >> 1.Algorithm - the preferred algorithm ro find the pattern in the binary file, (for now you can use --naive or --KMP)
+>>
 >> 2.FilePath - the path to the binary file.
+>>
 >> 3.Pattern - the pattern to search for.
+>>
 >> 4.Result - the string you want to be printed if the pattern is found in the file
+>
 >
 > In the case the pattern will not be found in the file,
 > the program will print "Unknown file type"
