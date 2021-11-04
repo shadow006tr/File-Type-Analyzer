@@ -1,7 +1,8 @@
+
 # File Type Analyzer #
 
-<h2> a HyperSkill.org project </h2>
-<h3><strong> in progress </strong></h3>
+## a HyperSkill.org project ##
+** in progress **
 
 This is my code from HyperSkill's File Type Analyzer Project.
 
@@ -9,12 +10,12 @@ The [project](https://github.com/shadow006tr/File-Type-Analyzer---My-Solutions--
 I will submit new files once I complete every chapter.
 
 
-</br>
-<h3><strong> Course </strong></h3>
 
-Java</br>
-</br>
-<h3><strong> Copyright </strong></h3>
+** Course **
+
+Java
+
+** Copyright **
 
 The course has a copywrite by Hyperskill and JetBrains. I'm just putting my core here for anyone stuck at a problem.
 If you like the questions then please consider buying the course at [HyperSkill.org](https://hyperskill.org/)
