@@ -3,6 +3,69 @@ package analyzer;
 import java.io.*;
 import java.nio.file.Files;
 
+public class Main {
+    /**
+     * The main function. Takes 4 arguments
+     * ( 1.Algorithm - the preferred algorithm ro find the pattern in the binary file,
+     *   2.FilePath - the path to the binary file.
+     *   3.Pattern - the pattern to search for,
+     *   4.Result - the string you want to be printed if the pattern is found in the file)
+     *
+     *
+     * In the case the pattern will not be found in the file,
+     * the program will print "Unknown file type"
+     */
+    public static void main(String[] args) {
+
+        final int minArgs = 4;
+
+        if (args.length != minArgs) {
+            System.out.println("invalid amount of arguments.\n" +
+                    "Please add an operator (\"+\", \"-\", \"*\")," +
+                    " and two integers as the command-line arguments");
+            System.exit(1);
+        }
+
+        String algorithm = args[0];
+        String filePath = args[1];
+        String pattern = args[2];
+        String result = args[3];
+
+        analyzer.TypeAnalyzer typeAnalyzer = null;
+
+        boolean found = false;
+
+        switch (algorithm) {
+            case "--naive":
+                typeAnalyzer = new analyzer.TypeAnalyzer(new analyzer.NaiveAlgorithm());
+                break;
+            case "--KMP":
+                typeAnalyzer = new analyzer.TypeAnalyzer(new analyzer.KmpAlgorithm());
+                break;
+            default:
+                break;
+        }
+
+        if (typeAnalyzer == null) {
+            System.out.println("Unknown strategy type passed. Please, write to the author of the problem");
+        } else {
+
+            File file = new File(filePath);
+            try {
+                byte[] bytesRead = Files.readAllBytes(file.toPath());
+                found = typeAnalyzer.analyze(bytesRead, pattern, bytesRead.length);
+
+            } catch (Exception e) {
+                System.out.println("Exception: " + e.getMessage());
+            }
+        }
+
+        System.out.println(found ? result : "Unknown file type");
+        System.out.printf("It took %.3f seconds", (double)System.nanoTime() / 1_000_000_000);
+
+    }
+}
+
 class TypeAnalyzer {
     /**
      * A strategy for concrete algorithms
@@ -120,68 +183,7 @@ class KmpAlgorithm implements TypeAnalyzingAlgorithm {
     }
 }
 
-public class Main {
-    /**
-     * The main function. Takes 4 arguments
-     * ( 1.Algorithm - the preferred algorithm ro find the pattern in the binary file,
-     *   2.FilePath - the path to the binary file.
-     *   3.Pattern - the pattern to search for,
-     *   4.Result - the string you want to be printed if the pattern is found in the file)
-     *
-     *
-     * In the case the pattern will not be found in the file,
-     * the program will print "Unknown file type"
-     */
-    public static void main(String[] args) {
 
-        final int minArgs = 4;
-
-        if (args.length != minArgs) {
-            System.out.println("invalid amount of arguments.\n" +
-                    "Please add an operator (\"+\", \"-\", \"*\")," +
-                    " and two integers as the command-line arguments");
-            System.exit(1);
-        }
-
-        String algorithm = args[0];
-        String filePath = args[1];
-        String pattern = args[2];
-        String result = args[3];
-
-        TypeAnalyzer typeAnalyzer = null;
-
-        boolean found = false;
-
-        switch (algorithm) {
-            case "--naive":
-                typeAnalyzer = new TypeAnalyzer(new NaiveAlgorithm());
-                break;
-            case "--KMP":
-                typeAnalyzer = new TypeAnalyzer(new KmpAlgorithm());
-                break;
-            default:
-                break;
-        }
-
-        if (typeAnalyzer == null) {
-            System.out.println("Unknown strategy type passed. Please, write to the author of the problem");
-        } else {
-
-            File file = new File(filePath);
-            try {
-                byte[] bytesRead = Files.readAllBytes(file.toPath());
-                found = typeAnalyzer.analyze(bytesRead, pattern, bytesRead.length);
-
-            } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
-            }
-        }
-
-        System.out.println(found ? result : "Unknown file type");
-        System.out.printf("It took %.3f seconds", (double)System.nanoTime() / 1_000_000_000);
-
-    }
-}
 
 
 
