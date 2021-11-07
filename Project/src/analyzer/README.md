@@ -4,17 +4,18 @@
 
 > This is my code from HyperSkill's File Type Analyzer Project.
 >
-> The program will determine a file type by searching a specific pattern in it
+> The program will determine a file type by searching a specific pattern in it.
 >
-> Takes 4 arguments
+> It will go by all of the files in a folder and check them for the pattern.
+> Each file will be checked in a different thread, based on the amount available in your processor
 >
->> 1.Algorithm - the preferred algorithm ro find the pattern in the binary file, (for now you can use --naive or --KMP)
+> Takes 3 arguments
+>
+>> 1.Folder - the path to a folder with files / other folders.
 >>
->> 2.FilePath - the path to the binary file.
+>> 2.Pattern - the pattern to search for.
 >>
->> 3.Pattern - the pattern to search for.
->>
->> 4.Result - the string you want to be printed if the pattern is found in the file
+>> 3.Result - the string you want to be printed if the pattern is found in the file
 >
 >
 > In the case the pattern will not be found in the file,
