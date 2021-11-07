@@ -23,7 +23,7 @@ public class Main {
         final int argNum = 3;                                                       // the amount of arguments needed
 
         if (args.length != argNum) {                                                // if the amount of arguments
-            System.out.printf("invalid amount of arguments.\n" +                    // will not be sufficient,
+            System.out.printf("invalid amount of arguments.\n" +                    // provided is not sufficient,
                     "Please add %d operators,\n" +                                  // the app will print a message
                     "a path to a folder from which to take the files" +             // and exit with an error.
                     "a pattern to search in the files" +
