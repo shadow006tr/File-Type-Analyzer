@@ -28,5 +28,6 @@
 
 ### Copyright ###
 
-> The course has a copywrite by Hyperskill and JetBrains. I'm just putting my core here for anyone stuck at a problem.
-> If you like the questions then please consider buying the course at [HyperSkill.org](https://hyperskill.org/)
+> The course has a copywrite by Hyperskill and JetBrains. I'm just putting my solutions here for anyone stuck at a problems.
+>
+> If you like the courses questions then please consider buying the course at [HyperSkill.org](https://hyperskill.org/)
