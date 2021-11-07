@@ -23,9 +23,12 @@ public class Main {
         final int argNum = 3;                                                       // the amount of arguments needed
 
         if (args.length != argNum) {                                                // if the amount of arguments
-            System.out.println("invalid amount of arguments.\n" +                   // will not be sufficient,
-                    "Please add an operator (\"+\", \"-\", \"*\")," +               // the app will exit with an error.
-                    " and two integers as the command-line arguments");
+            System.out.printf("invalid amount of arguments.\n" +                    // will not be sufficient,
+                    "Please add %d operators,\n" +                                  // the app will print a message
+                                                                                    // and exit with an error.
+                    "a path to a folder from which to take the files" +
+                    "a pattern to search in the files" +
+                    "and a result to print if the pattern is found", argNum);
             System.exit(1);
         }
 
