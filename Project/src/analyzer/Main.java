@@ -2,189 +2,60 @@ package analyzer;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     /**
      * The main function. Takes 4 arguments
-     * ( 1.Algorithm - the preferred algorithm ro find the pattern in the binary file,
-     *   2.FilePath - the path to the binary file.
-     *   3.Pattern - the pattern to search for,
-     *   4.Result - the string you want to be printed if the pattern is found in the file)
+     * ( 1.Folder - Folder with files to check)
+     *   2.Pattern - the pattern to search for.
+     *   3.Result - the string you want to be printed if the pattern is found in the file)
      *
-     *
-     * In the case the pattern will not be found in the file,
-     * the program will print "Unknown file type"
+     * the app will run a multithreaded work (each file as a thread)
+     * and execute the KMP string search algorithm
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        final int minArgs = 4;
+        final int argNum = 3;                                                       // the amount of arguments needed
 
-        if (args.length != minArgs) {
-            System.out.println("invalid amount of arguments.\n" +
-                    "Please add an operator (\"+\", \"-\", \"*\")," +
+        if (args.length != argNum) {                                                // if the amount of arguments
+            System.out.println("invalid amount of arguments.\n" +                   // will not be sufficient,
+                    "Please add an operator (\"+\", \"-\", \"*\")," +               // the app will exit with an error.
                     " and two integers as the command-line arguments");
             System.exit(1);
         }
 
-        String algorithm = args[0];
-        String filePath = args[1];
-        String pattern = args[2];
-        String result = args[3];
+        ArrayList<File> filesArray = new ArrayList<File>();                         // creating a fileArray to hold all
+                                                                                    // the files in the directory
+        String folder = args[0];
+        String pattern = args[1];
+        String result = args[2];
 
-        analyzer.TypeAnalyzer typeAnalyzer = null;
+        int poolSize = Runtime.getRuntime().availableProcessors();                  // getting a pool size based of the
+                                                                                    // amount of available processors
 
-        boolean found = false;
+        new FileExtractor().run(folder, filesArray);                                // extracts the files
 
-        switch (algorithm) {
-            case "--naive":
-                typeAnalyzer = new analyzer.TypeAnalyzer(new analyzer.NaiveAlgorithm());
-                break;
-            case "--KMP":
-                typeAnalyzer = new analyzer.TypeAnalyzer(new analyzer.KmpAlgorithm());
-                break;
-            default:
-                break;
-        }
+        ExecutorService executor = Executors.newFixedThreadPool(poolSize);          // creating a Executor
+                                                                                    // based on the pool size
 
-        if (typeAnalyzer == null) {
-            System.out.println("Unknown strategy type passed. Please, write to the author of the problem");
-        } else {
-
-            File file = new File(filePath);
-            try {
-                byte[] bytesRead = Files.readAllBytes(file.toPath());
-                found = typeAnalyzer.analyze(bytesRead, pattern, bytesRead.length);
-
+        for (File file : filesArray) {                                              // submit all the files
+                                                                                    // in the array
+            try {                                                                   // to the executor by creating
+                executor.submit(new KmpWorker(file, pattern, result));              // a new KMP worker
             } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
+                e.printStackTrace();                                                // catching the exceptions
+                                                                                    // from the threads
             }
         }
 
-        System.out.println(found ? result : "Unknown file type");
-        System.out.printf("It took %.3f seconds", (double)System.nanoTime() / 1_000_000_000);
+        executor.shutdown();
 
+        boolean finished = executor.awaitTermination(10, TimeUnit.SECONDS);
     }
 }
-
-class TypeAnalyzer {
-    /**
-     * A strategy for concrete algorithms
-     * that will be used to analyze the type.
-     * I used the strategy pattern' so I could add algorithms more easily
-     * and do encapsulate the algorithms in separated classes
-     */
-    private final TypeAnalyzingAlgorithm algorithm;
-
-    public TypeAnalyzer(TypeAnalyzingAlgorithm algorithm) {
-        this.algorithm = algorithm;
-    }
-
-    public boolean analyze(byte[] bytesRead, String pattern, int size) {
-        return this.algorithm.getResult(bytesRead, pattern, size);
-    }
-}
-
-interface TypeAnalyzingAlgorithm {
-    /**
-     * A context to analyzer algorithm
-     * Returns search result in boolean
-     * True if found, False if not
-     */
-    boolean getResult(byte[] bytesRead, String pattern, int size);
-}
-
-class NaiveAlgorithm implements TypeAnalyzingAlgorithm {
-    /**
-     * An implementation of the naive algorithm
-     */
-    public boolean getResult(byte[] bytesRead, String pattern, int size) {
-
-        int patternLength = pattern.length();
-
-        boolean found = false;
-
-        for (int i = 0; i <= size - patternLength; i++) {
-
-            int j;
-
-            for (j = 0; j < patternLength; j++) {
-                if (bytesRead[i + j] != pattern.charAt(j)) {
-                    break;
-                }
-            }
-
-            if (j == patternLength) {
-                found = true;
-                break;
-            }
-        }
-
-        return found;
-    }
-}
-
-
-class KmpAlgorithm implements TypeAnalyzingAlgorithm {
-    /**
-     * The lsp array calculation.
-     * We will use that array in the KMP algorithm
-     */
-    private void computeLPSArray(String pattern, int size, int[] lps) {
-        int len = 0;
-        int i = 1;
-        lps[0] = 0;
-
-        while (i < size) {
-            if (pattern.charAt(i) == pattern.charAt(len)) {
-                len++;
-                lps[i] = len;
-                i++;
-            } else {    // if pattern[i] != pattern[len]
-                if (len != 0) {
-                    len = lps[len - 1];
-                } else { // if len = 0
-                    lps[i] = len;
-                    i++;
-                }
-            }
-        }
-    }
-    /**
-     * An implementation of the kmp algorithm
-     */
-    public boolean getResult(byte[] bytesRead, String pattern, int size) {
-
-        int patternLength = pattern.length();
-        int count = 0;
-        int i = 0;
-
-        int[] lps = new int[patternLength];
-
-        boolean found = false;
-
-        computeLPSArray(pattern, patternLength, lps);
-
-        while (i < size && !found) {
-            if (pattern.charAt(count) == bytesRead[i]) {
-                count++;
-                i++;
-            }
-            if (count == patternLength) {
-                found = true;
-            } else if (i < size && pattern.charAt(count) != bytesRead[i]) {
-                if (count != 0) {
-                    count = lps[count - 1];
-                } else {
-                    i++;
-                }
-            }
-        }
-        return found;
-    }
-}
-
-
-
-
-
 
