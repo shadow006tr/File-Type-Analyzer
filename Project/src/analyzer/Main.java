@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     /**
      * The main function. Takes 3 arguments
-     * ( 1.Folder - Folder with files to check)
+     * ( 1.Folder - Folder with files to check
      *   2.Pattern - the pattern to search for.
      *   3.Result - the string you want to be printed if the pattern is found in the file)
      *
