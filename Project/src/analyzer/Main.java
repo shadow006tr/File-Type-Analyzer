@@ -25,8 +25,7 @@ public class Main {
         if (args.length != argNum) {                                                // if the amount of arguments
             System.out.printf("invalid amount of arguments.\n" +                    // will not be sufficient,
                     "Please add %d operators,\n" +                                  // the app will print a message
-                                                                                    // and exit with an error.
-                    "a path to a folder from which to take the files" +
+                    "a path to a folder from which to take the files" +             // and exit with an error.
                     "a pattern to search in the files" +
                     "and a result to print if the pattern is found", argNum);
             System.exit(1);
