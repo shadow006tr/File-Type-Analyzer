@@ -22,7 +22,7 @@ public class Main {
      *   int Priority; String "Pattern"; String "Result"
      *   int Priority; String "Pattern"; String "Result"
      *   ...
-     *   ( see pattersDB_Example.txt for example )
+     *   ( the quotes are optional, see pattersDB_Example.txt for example )
      *
      *   Priority - the priority of the pattern. Higher priority patterns will be checked first
      *   Pattern - the pattern to check

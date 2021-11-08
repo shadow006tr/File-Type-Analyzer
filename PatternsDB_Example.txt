@@ -10,3 +10,5 @@
 8;"-----BEGIN\ CERTIFICATE-----";"PEM certificate"
 9;"ftypjp2";"ISO Media JPEG 2000"
 9;"ftypiso2";"ISO Media MP4 Base Media v2"
+
+the quotes are optional
