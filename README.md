@@ -2,8 +2,7 @@
 ## a HyperSkill.org project ##
 ### Completed ###
 
-> This is my code from HyperSkill's File Type Analyzer Project.
->
+> This is my code for [JetBrains Academy](https://hyperskill.org/'s File Type Analyzer Project.
 >
 > The program will determine a file type by searching a specific pattern in it.
 >
@@ -32,9 +31,3 @@
 ### Course ###
 
 > Java
-
-### Copyright ###
-
-> The course has a copywrite by Hyperskill and JetBrains. I'm just putting my solutions here for anyone stuck at a problems.
->
-> If you like the courses questions then please consider buying the course at [HyperSkill.org](https://hyperskill.org/)
