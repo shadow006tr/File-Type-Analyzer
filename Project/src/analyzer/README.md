@@ -19,11 +19,11 @@
 >> 2.Pattern Database - a pattern database, holding 3 parameters for each pattern:
 >>
 >>
->> int Priority - the priority of the pattern. Higher priority patterns will be checked first
+>>> int Priority - the priority of the pattern. Higher priority patterns will be checked first
 >>
->> String Pattern - the pattern to check
+>>> String Pattern - the pattern to check
 >>
->> String Result - the result to be printed if the pattern is found in the file)
+>>> String Result - the result to be printed if the pattern is found in the file)
 >
 > In the case the pattern will not be found in the file,
 >
