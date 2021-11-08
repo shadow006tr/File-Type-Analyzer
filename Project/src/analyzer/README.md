@@ -22,7 +22,7 @@
 >>
 >>> String Pattern - the pattern to check
 >>
->>> String Result - the result to be printed if the pattern is found in the file)
+>>> String Result - the result to be printed if the pattern is found in the file
 >
 > In the case the pattern will not be found in the file,
 >
