@@ -2,7 +2,7 @@
 # File Type Analyzer #
 
 ## a HyperSkill.org project ##
-### **in progress** ###
+### Completed ###
 
 > This is my code from HyperSkill's File Type Analyzer Project.
 >
