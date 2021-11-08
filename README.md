@@ -2,7 +2,7 @@
 ## a HyperSkill.org project ##
 ### Completed ###
 
-> This is my code for [JetBrains Academy](https://hyperskill.org/'s File Type Analyzer Project.
+> This is my code for [JetBrains Academy](https://hyperskill.org/)'s File Type Analyzer Project.
 >
 > The program will determine a file type by searching a specific pattern in it.
 >
