@@ -22,6 +22,7 @@
 >>> String Pattern - the pattern to check
 >>
 >>> String Result - the result to be printed if the pattern is found in the file
+>> see PatternsDB_Example.txt for an example
 >
 > In the case the pattern will not be found in the file,
 >
