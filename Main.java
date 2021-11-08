@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class Main {
     /**
      * The main function. Takes 2 arguments
-     * ( 1.Folder - Folder with files to check)
+     * ( 1.Folder - Folder with files to check
      *   2.Pattern - the pattern and result database
      *   (the base is supposed to be structured like this:
      *
