@@ -17,7 +17,7 @@
 >> 1.Folder - the path to a folder with files / other folders.
 >
 >> 2.Pattern Database - a pattern database, holding 3 parameters for each pattern:
->
+>>
 >>> int Priority - the priority of the pattern. Higher priority patterns will be checked first
 >>
 >>> String Pattern - the pattern to check
