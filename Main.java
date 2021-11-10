@@ -30,12 +30,12 @@ public class Main {
      * the app will run a multithreaded work (each file as a thread)
      * and execute the RabinKarp Substring search algorithm
      */
-    public static void main(String[] args) throws InterruptedException, IOException, IncorrectArgumentAmountException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
         final int argNum = 2;                                                       // The amount of arguments needed
 
         if (args.length != argNum) {                                                // Tf the amount of arguments
-            throw new IncorrectArgumentAmountException                              // will not be correct,
+            throw new IllegalArgumentException                              // will not be correct,
                     (String.format("invalid amount of arguments.\n" +               // the app will exit with an error.
                             "Please add %d operators,\n" +
                             "a path to a folder from which to take the files" +
@@ -92,10 +92,3 @@ public class Main {
         executor.shutdown();                                                        // shutting down the executor.
     }
 }
-
-class IncorrectArgumentAmountException extends Exception {
-    public IncorrectArgumentAmountException(String message) {
-        super(message);
-    }
-}
-
