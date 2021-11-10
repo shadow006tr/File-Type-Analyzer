@@ -14,34 +14,33 @@ import java.util.stream.Collectors;
 
 public class Main {
     /**
-     * The main function. Takes 2 arguments
-     * ( 1.Folder - Folder with files to check
+     * The main function. Takes 4 arguments
+     * ( 1.Folder - Folder with files to check)
      *   2.Pattern - the pattern and result database
      *   (the base is supposed to be structured like this:
      *
      *   int Priority; String "Pattern"; String "Result"
      *   int Priority; String "Pattern"; String "Result"
      *   ...
-     *   ( the quotes are optional, see pattersDB_Example.txt for example )
      *
      *   Priority - the priority of the pattern. Higher priority patterns will be checked first
      *   Pattern - the pattern to check
-     *   Result - the result to be printed if the pattern is found in the file)
+     *   Result - the result to be displayed if the pattern is found in the file)
      *
      * the app will run a multithreaded work (each file as a thread)
      * and execute the RabinKarp Substring search algorithm
      */
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException, IOException, IncorrectArgumentAmountException {
 
         final int argNum = 2;                                                       // The amount of arguments needed
 
         if (args.length != argNum) {                                                // Tf the amount of arguments
-            System.out.printf("invalid amount of arguments.\n" +                    // will not be correct,
-                    "Please add %d operators,\n" +                                  // the app will exit with an error.
-                    "a path to a folder from which to take the files" +
-                    "and a text database of patterns " +
-                    "and results to print if the pattern is found", argNum);
-            System.exit(1);
+            throw new IncorrectArgumentAmountException                              // will not be correct,
+                    (String.format("invalid amount of arguments.\n" +               // the app will exit with an error.
+                            "Please add %d operators,\n" +
+                            "a path to a folder from which to take the files" +
+                            "and a text database of patterns " +
+                            "and results to print if the pattern is found", argNum));
         }
 
         List<File> filesList = Files.walk(Path.of(args[0]))                         // Creating a list of all the files
@@ -78,7 +77,7 @@ public class Main {
                             .map(Pattern::getResult)                                // If it finds a pattern in the file,
                             .findFirst()                                            // the app saves the result
                                                                                     // of that pattern and stops.
-                            .orElse("Unknown file type"));                          // If it doesn't find a pattern
+                            .orElse("Unknown file type"));                   // If it doesn't find a pattern
                                                                                     // then it saves "Unknown file type"
             filesList.forEach(f -> callables.add(() -> result));
             }
@@ -91,6 +90,12 @@ public class Main {
             }
         });
         executor.shutdown();                                                        // shutting down the executor.
+    }
+}
+
+class IncorrectArgumentAmountException extends Exception {
+    public IncorrectArgumentAmountException(String message) {
+        super(message);
     }
 }
 
