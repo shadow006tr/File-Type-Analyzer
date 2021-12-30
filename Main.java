@@ -34,8 +34,8 @@ public class Main {
 
         final int argNum = 2;                                                       // The amount of arguments needed
 
-        if (args.length != argNum) {                                                // Tf the amount of arguments
-            throw new IllegalArgumentException                              // will not be correct,
+        if (args.length != argNum) {                                                // If the amount of arguments
+            throw new IllegalArgumentException                                      // will not be correct,
                     (String.format("invalid amount of arguments.\n" +               // the app will exit with an error.
                             "Please add %d operators,\n" +
                             "a path to a folder from which to take the files" +
@@ -77,7 +77,7 @@ public class Main {
                             .map(Pattern::getResult)                                // If it finds a pattern in the file,
                             .findFirst()                                            // the app saves the result
                                                                                     // of that pattern and stops.
-                            .orElse("Unknown file type"));                   // If it doesn't find a pattern
+                            .orElse("Unknown file type"));                          // If it doesn't find a pattern
                                                                                     // then it saves "Unknown file type"
             filesList.forEach(f -> callables.add(() -> result));
             }
